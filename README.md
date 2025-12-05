@@ -2,7 +2,11 @@
 
 An interactive platform for learning quantum error correction through games and visualizations. Built around the Steane code, Hamming codes, and other QEC constructions.
 
-**Inspired by and building upon** the pioneering [Decodoku](docs/design/ORIGINAL-DECODOKU-GAME.md) game by Dr. James Wootton. This project extends the concept of quantum gaming education to additional quantum codes with rich geometric structure.
+**Inspired by and building upon** the pioneering [Decodoku](docs/design/ORIGINAL-DECODOKU-GAME.md) game by Dr. James Wootton. This project extends the concept of quantum gaming education to additional quantum codes with rich geometric structure.   
+
+---
+![CodoQ](./img/CodoQ.png)
+---
 
 ## Features
 

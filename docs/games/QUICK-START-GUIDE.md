@@ -6,6 +6,10 @@ This guide helps you get started with the two main quantum error correction game
 
 **About This Project**: Inspired by [Dr. James Wootton's Decodoku](../design/ORIGINAL-DECODOKU-GAME.md), these games make quantum error correction accessible through geometric visualization and interactive gameplay.
 
+---
+![CodoQ](../../img/CodoQ.png)
+---
+
 ## Installation
 
 ```bash

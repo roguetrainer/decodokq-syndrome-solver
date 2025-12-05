@@ -6,6 +6,10 @@ This repository contains two interactive games for learning quantum error correc
 
 **Inspired by [Decodoku](docs/design/ORIGINAL-DECODOKU-GAME.md)**: This project builds upon Dr. James Wootton's pioneering work in quantum gaming education, extending the concept to qubit stabilizer codes with rich geometric structure (Steane and Reed-Muller codes).
 
+---
+![CodoQ](./img/CodoQ.png)
+---
+
 ## Games Implemented
 
 ### 1. Steane Code Game - 2D Fano Plane Geometry
