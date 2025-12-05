@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steane Code Fano Plane Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            padding: 24px;
+        }
+        canvas {
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            background-color: #0e1216;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container w-full max-w-4xl">
+        <h1 class="text-3xl font-bold mb-4 text-center text-blue-400">Decodok-Q: Fano Plane Geometry</h1>
+        <p class="text-sm text-center mb-6 text-gray-400">
+            Select a 3-qubit line (Hamming parity check) below to see its **4-qubit complement** (the Steane stabilizer check).
+        </p>
+        
+        <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0 lg:space-x-6">
+            
+            <div class="w-full lg:w-1/2 flex justify-center">
+                <canvas id="fanoCanvas" width="400" height="400"></canvas>
+            </div>
+
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-xl font-semibold mb-3">Line Checks (3-Qubit Sets)</h2>
+                <div id="checkButtons" class="grid grid-cols-2 gap-3">
+                    <!-- Buttons will be generated here by JavaScript -->
+                </div>
+
+                <div class="mt-6 p-4 bg-gray-700/30 rounded-lg border border-gray-600">
+                    <h3 class="text-lg font-bold text-yellow-300 mb-2">Syndrome Interpretation:</h3>
+                    <div id="syndromeOutput" class="text-sm space-y-1">
+                        <p class="text-gray-400">Select a line above to analyze the check.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Start IIFE to isolate scope and prevent global redeclaration errors
+        (function() {
+            const canvas = document.getElementById('fanoCanvas');
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width;
+            const H = canvas.height;
+            const R = 8; // Node radius
+            const buttonContainer = document.getElementById('checkButtons');
+            const syndromeOutput = document.getElementById('syndromeOutput');
+
+            // --- 1. Node Coordinates (Based on User's Request) ---
+            // Center (0), Vertices (1, 2, 3), Midpoints (4, 5, 6)
+            const h = 150; // Triangle height
+            const s = h / (Math.sqrt(3) / 2); // Side length
+            const coords = [
+                // 0: Center
+                { x: W / 2, y: H / 2, label: '0 (Center)' },
+                // 1: Top Vertex
+                { x: W / 2, y: H / 2 - h * 2 / 3, label: '1 (Vertex)' },
+                // 2: Bottom-Left Vertex
+                { x: W / 2 - s / 2, y: H / 2 + h / 3, label: '2 (Vertex)' },
+                // 3: Bottom-Right Vertex
+                { x: W / 2 + s / 2, y: H / 2 + h / 3, label: '3 (Vertex)' },
+                // 4: Midpoint of 1-2
+                { x: (W / 2 + W / 2 - s / 2) / 2, y: (H / 2 - h * 2 / 3 + H / 2 + h / 3) / 2, label: '4 (Midpoint 1-2)' },
+                // 5: Midpoint of 2-3
+                { x: W / 2, y: H / 2 + h / 3, label: '5 (Midpoint 2-3)' },
+                // 6: Midpoint of 3-1
+                { x: (W / 2 + W / 2 + s / 2) / 2, y: (H / 2 + h / 3 + H / 2 - h * 2 / 3) / 2, label: '6 (Midpoint 3-1)' },
+            ].map(c => ({ x: Math.round(c.x), y: Math.round(c.y), label: c.label })); // Ensure integer coordinates
+
+            // --- 2. Abstract Line Definitions (3-Qubit Sets) ---
+            // These sets represent the 7 fundamental lines of the Fano Plane geometry.
+            // We will focus the UI on the outer triangle sides L1, L2, L3 and the central lines L5, L6, L7.
+            const lines = [
+                { indices: [1, 4, 2], name: "Side 1-2 (Top-Left)" },
+                { indices: [2, 5, 3], name: "Side 2-3 (Bottom)" },
+                { indices: [3, 6, 1], name: "Side 3-1 (Top-Right)" },
+                { indices: [4, 5, 6], name: "Circle (Midpoints)" },
+                { indices: [0, 1, 5], name: "Line 0-1-5" },
+                { indices: [0, 2, 6], name: "Line 0-2-6" },
+                { indices: [0, 3, 4], name: "Line 0-3-4" }
+            ];
+
+            // --- 3. Drawing Functions ---
+
+            function drawLine(indices, strokeColor = '#30363d', lineWidth = 2, isDashed = false) {
+                ctx.beginPath();
+                const start = coords[indices[0]];
+                // const end = coords[indices[indices.length - 1]]; // Not needed for the triangle drawing
+
+                if (indices.length === 3 && indices.includes(4) && indices.includes(5) && indices.includes(6)) {
+                    // Draw the central circle (L4)
+                    const circleRadius = 75; // Arbitrary size for visual fit
+                    ctx.arc(W / 2, H / 2, circleRadius, 0, 2 * Math.PI);
+                } else if (indices.length === 3 && indices.includes(0)) {
+                    // Draw internal straight lines (L5, L6, L7) passing through the center
+                    // We draw from the first non-center point, through the center, to the third point
+                    const outerPoints = indices.filter(i => i !== 0);
+                    const p1 = coords[outerPoints[0]]; 
+                    const p2 = coords[outerPoints[1]]; 
+
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(coords[0].x, coords[0].y);
+                    ctx.lineTo(p2.x, p2.y); 
+
+                } else {
+                    // Draw outer triangle sides (L1, L2, L3)
+                    ctx.moveTo(start.x, start.y);
+                    for (let i = 1; i < indices.length; i++) {
+                        ctx.lineTo(coords[indices[i]].x, coords[indices[i]].y);
+                    }
+                    // Close the outer triangle if we are drawing the vertices (1, 2, 3) implicitly
+                    if (indices[0] === 1 && indices[1] === 4 && indices[2] === 2) {
+                         // Line 1-4-2, 2-5-3, 3-6-1 defines the outer triangle
+                    }
+                }
+                
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = lineWidth;
+                if (isDashed) {
+                    ctx.setLineDash([5, 5]);
+                } else {
+                    ctx.setLineDash([]);
+                }
+                ctx.stroke();
+            }
+
+
+            function drawNode(index, fillColor = '#34d399', strokeColor = '#065f46') {
+                const p = coords[index];
+                
+                // Draw node circle
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, R, 0, 2 * Math.PI);
+                ctx.fillStyle = fillColor;
+                ctx.fill();
+                ctx.strokeStyle = strokeColor;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw label number
+                ctx.fillStyle = '#0d1117';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = '12px Inter';
+                ctx.fillText(index.toString(), p.x, p.y + 1);
+            }
+
+            function drawFanoPlane(highlightLineIndices = [], complementIndices = []) {
+                ctx.clearRect(0, 0, W, H);
+                
+                // Draw all lines first
+                lines.forEach(line => {
+                    let color = '#30363d';
+                    let width = 1.5;
+                    let isHighlighted = highlightLineIndices.length > 0 && line.indices.every(i => highlightLineIndices.includes(i));
+                    
+                    if (isHighlighted) {
+                        color = '#f87171'; // Red for violated line
+                        width = 4;
+                    }
+                    drawLine(line.indices, color, width);
+                });
+
+                // Draw all nodes
+                for (let i = 0; i < coords.length; i++) {
+                    let fillColor = '#34d399'; // Base Green
+                    let strokeColor = '#065f46';
+                    let labelColor = '#c9d1d9';
+
+                    if (highlightLineIndices.includes(i)) {
+                        // Node is part of the 3-qubit line check
+                        fillColor = '#f87171'; // Red for the checked qubits
+                        strokeColor = '#b91c1c';
+                        labelColor = '#0d1117';
+                    } else if (complementIndices.includes(i)) {
+                        // Node is part of the 4-qubit stabilizer/correction set
+                        fillColor = '#8b5cf6'; // Violet for the complementary qubits (the correction set)
+                        strokeColor = '#5b21b6';
+                        labelColor = '#0d1117';
+                    }
+                    
+                    drawNode(i, fillColor, strokeColor);
+
+                    // Draw text label outside the node
+                    ctx.fillStyle = labelColor;
+                    ctx.font = '10px Inter';
+                    // Adjust label position slightly to avoid overlap
+                    let dx = 0, dy = 0;
+                    if (i === 1) dy = -12; // Top vertex
+                    if (i === 0) { dx = -15; dy = 0; } // Center
+                    
+                    ctx.fillText(i, coords[i].x + R + 5 + dx, coords[i].y + 2 + dy);
+                }
+            }
+
+            // --- 4. Logic Functions ---
+
+            function getComplement(lineIndices) {
+                const allIndices = new Set([0, 1, 2, 3, 4, 5, 6]);
+                const lineSet = new Set(lineIndices);
+                const complement = [];
+                for (const index of allIndices) {
+                    if (!lineSet.has(index)) {
+                        complement.push(index);
+                    }
+                }
+                return complement;
+            }
+            
+            // --- 5. Main Interaction Function ---
+
+            function highlightCheck(lineIndex) {
+                const selectedLine = lines[lineIndex];
+                const lineIndices = selectedLine.indices;
+                const complementIndices = getComplement(lineIndices);
+
+                drawFanoPlane(lineIndices, complementIndices);
+                
+                // Update interpretation panel
+                syndromeOutput.innerHTML = `
+                    <p><strong>Selected Line (3-Qubit Check):</strong> ${selectedLine.name} (Nodes: ${lineIndices.join(', ')})</p>
+                    <p><strong>Stabilizer Set (4-Qubit Complement):</strong> Nodes: <span class="text-purple-400">${complementIndices.join(', ')}</span></p>
+                    <p class="mt-2 text-yellow-400"><strong>Interpretation:</strong> If an error occurs on *any* of the <span class="font-bold">4 purple nodes</span>, this stabilizer check will fail (syndrome -1, or 1).</p>
+                    <p class="text-xs text-gray-500 mt-2">The <span class="text-red-400">red nodes</span> are the three qubits that must satisfy the parity rule for this specific check.</p>
+                `;
+            }
+
+            // --- Initialization ---
+
+            function init() {
+                // Draw initial state (no highlighting)
+                drawFanoPlane();
+
+                // Generate buttons for the 7 checks
+                lines.forEach((line, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = `Check ${index + 1}: ${line.name}`;
+                    button.className = 'p-2 rounded-lg text-sm font-semibold bg-gray-600 hover:bg-blue-600 transition duration-150 shadow-md text-white';
+                    button.onclick = () => highlightCheck(index);
+                    buttonContainer.appendChild(button);
+                });
+            }
+
+            window.onload = init;
+        })(); // End IIFE
+    </script>
+</body>
+</html>

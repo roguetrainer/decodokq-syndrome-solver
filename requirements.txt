@@ -1,0 +1,16 @@
+# Core dependencies
+numpy>=1.21.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=3.0.0
+
+# Future API dependencies (uncomment when needed)
+# flask>=2.0.0
+# fastapi>=0.95.0
+# uvicorn>=0.20.0
+
+# Development tools
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.950
