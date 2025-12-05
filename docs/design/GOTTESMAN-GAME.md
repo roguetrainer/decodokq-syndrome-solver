@@ -2,6 +2,10 @@
 
 **Based on High-Dimensional Geometry and Quantum Error Correction**
 
+---
+![Gottesman](../../img/Gottesman.png)  
+--- 
+
 ## **1\. Scientific Foundation**
 
 ### **The Gottesman Code (Stabilizer Formalism)**
