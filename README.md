@@ -5,12 +5,12 @@ An interactive platform for learning quantum error correction through games and 
 **Inspired by and building upon** the pioneering [Decodoku](docs/design/ORIGINAL-DECODOKU-GAME.md) game by Dr. James Wootton. This project extends the concept of quantum gaming education to additional quantum codes with rich geometric structure.   
 
 ---
-![CodoQ](./img/CodoQ.png)
+![CodoQ](./img/CodoQ.png)  
 ---
 
 ## Features
 
-- **Interactive Visualizations**: Explore the Fano plane geometry underlying the Steane [[7,1,3]] code
+- **Interactive Visualizations**: Explore the Fano plane geometry underlying the Steane [[7,1,3]] code + 4D 600-cell of the Gottesman protocol
 - **Educational Games**: Learn syndrome decoding through hands-on puzzles
 - **Modular QEC Framework**: Extensible Python backend for multiple code families
 - **Visual Learning**: Understand stabilizer codes through geometric representations
