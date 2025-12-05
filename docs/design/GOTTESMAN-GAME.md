@@ -75,3 +75,8 @@ The game centers on the 3D projection of the 600-cell.
 ## **5\. Educational Insight**
 
 This game demonstrates why topological quantum computing is powerful. In standard memory, one flipped bit corrupts data. In the Gottesman/600-cell game, the data is not in a single vertex; it is in the *topology* of the whole web. The player learns that **information is nonlocal**.
+
+## `gottesmann-game.html`.  
+See 
+*  [`GOTTESMAN-GAME-THREE-JS.md`](GOTTESMAN-GAME-THREE-JS.md)
+* [`gottesmann-game.html`](../../frontend/games/gottesmann-game.html)

@@ -16,4 +16,6 @@ This is a single HTML file containing the `Three.js` 3D engine, the 4D math to g
     * **Player Fix:** Click nodes to flip them back.
 
 ## `gottesmann-game.html`.  
-See [`gottesmann-game.html`](../../frontend/games/gottesmann-game.html)
+See 
+*  [`GOTTESMAN-GAME.md`](GOTTESMAN-GAME.md)
+* [`gottesmann-game.html`](../../frontend/games/gottesmann-game.html)
