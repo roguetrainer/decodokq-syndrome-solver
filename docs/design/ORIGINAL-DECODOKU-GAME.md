@@ -117,21 +117,21 @@ This repository includes:
 
 ### Building on Decodoku
 
-The code in **this repository** (decodokq-syndrome-solver) builds on the foundation established by James Wootton's original work. We acknowledge and celebrate this heritage by:
+The code in **this repository** (codoq-quantum-game) builds on the foundation established by James Wootton's original work. We acknowledge and celebrate this heritage by:
 
 - Following the spirit of making quantum error correction accessible through games
 - Extending the concept to other quantum codes (Steane, Reed-Muller)
 - Focusing on educational value and geometric intuition
 - Maintaining the open-source, collaborative ethos
 
-## Evolution: From Decodoku to Decodok-Q
+## Evolution: From Decodoku to Codo-Q
 
 ### What's Different?
 
-While inspired by the original Decodoku, this project (Decodok-Q) takes a different approach:
+While inspired by the original Decodoku, this project (Codo-Q) takes a different approach:
 
-| Aspect | Original Decodoku | Decodok-Q (This Project) |
-|--------|-------------------|--------------------------|
+| Aspect | Original Decodoku | Codo-Q (This Project) |
+|--------|-------------------|----------------------|
 | **Codes** | Qudit surface codes (d=10) | Steane [[7,1,3]], Reed-Muller [[15,1,3]] |
 | **Geometry** | 2D lattice/grid | Fano plane (2D), Tetrahedron (3D) |
 | **System** | Qudits (d=10) | Qubits (d=2) |
@@ -139,9 +139,9 @@ While inspired by the original Decodoku, this project (Decodok-Q) takes a differ
 | **Platform** | Mobile apps, web | Jupyter notebooks, Python |
 | **Target Audience** | General public | Students and learners |
 
-### The "Q" Replacement
+### The "Q" in Codo-Q
 
-Following Decodoku's tradition of replacing "u" with "q" (because it rhymes!), we named this project **Decodok-Q** to emphasize:
+Following Decodoku's tradition of replacing "u" with "q" (because it rhymes!), we named this project **Codo-Q** (Code + Q) to emphasize:
 
 - The **quantum** nature of error correction
 - The focus on **qubits** (d=2) rather than qudits
@@ -199,7 +199,7 @@ Humans excel at visual pattern recognition. Games that translate quantum problem
 
 ### Educational Philosophy
 
-Like the original Decodoku, this project (Decodok-Q) embraces the philosophy that:
+Like the original Decodoku, this project (Codo-Q) embraces the philosophy that:
 
 - Quantum error correction should be accessible to all
 - Games and interactive visualizations enhance understanding
@@ -218,7 +218,7 @@ We acknowledge our debt to James Wootton's pioneering work by:
 
 ### Different Approach, Same Goal
 
-While Decodoku focused on qudit surface codes and research contribution, Decodok-Q focuses on:
+While Decodoku focused on qudit surface codes and research contribution, Codo-Q focuses on:
 
 - **Qubit stabilizer codes** (Steane, Reed-Muller)
 - **Geometric understanding** (projective geometry, polytopes)
@@ -262,7 +262,7 @@ Both projects share the ultimate goal: **making quantum error correction underst
 
 ## Acknowledgments
 
-This project (Decodok-Q: Quantum Error Correction Games) is built on the foundation established by Dr. James Wootton's pioneering Decodoku work. We are grateful for:
+This project (Codo-Q: Quantum Error Correction Games) is built on the foundation established by Dr. James Wootton's pioneering Decodoku work. We are grateful for:
 
 - The inspiration to make quantum error correction accessible through games
 - The open-source code shared at [github.com/quantumjim/decodoku](https://github.com/quantumjim/decodoku)

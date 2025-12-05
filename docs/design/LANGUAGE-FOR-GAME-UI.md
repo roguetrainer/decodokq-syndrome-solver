@@ -2,7 +2,7 @@
 
 That's a very practical issue when planning a game project. The decision hinges entirely on **where the computational complexity lies** and **where the game will be hosted/played**.
 
-For a game like **Decodok-Q**, which relies heavily on a real-time, responsive user interface (UI) and visualization, **JavaScript for the frontend is the far superior choice.**
+For a game like **Codo-Q**, which relies heavily on a real-time, responsive user interface (UI) and visualization, **JavaScript for the frontend is the far superior choice.**
 
 Here's a breakdown comparing the options for a modern web-based game:
 
@@ -22,7 +22,7 @@ Here's a breakdown comparing the options for a modern web-based game:
 
 ## Recommendation: JavaScript for the Frontend, Python for Complex Backend Tools
 
-For **Decodok-Q**, the best approach is to leverage the strengths of both:
+For **Codo-Q**, the best approach is to leverage the strengths of both:
 
 ### 1. Frontend (The Game): JavaScript (React or Pure HTML/JS)
 

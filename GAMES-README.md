@@ -148,7 +148,7 @@ Located in [docs/design/](docs/design/):
 ## Code Structure
 
 ```
-decodokq-syndrome-solver/
+codoq-quantum-game/
 │
 ├── src/codes/                      # Code implementations
 │   ├── steane.py                  # Steane [[7,1,3]]

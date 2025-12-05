@@ -1,4 +1,4 @@
-# Decodok-Q: Quantum Error Correction Games
+# Codo-Q: Quantum Error Correction Games
 
 An interactive platform for learning quantum error correction through games and visualizations. Built around the Steane code, Hamming codes, and other QEC constructions.
 
@@ -14,7 +14,7 @@ An interactive platform for learning quantum error correction through games and 
 ## Project Structure
 
 ```
-decodokq-syndrome-solver/
+codoq-quantum-game/
 ├── docs/                   # Documentation
 │   ├── design/            # Roadmaps and UI design decisions
 │   ├── theory/            # QEC theory and mathematical concepts
@@ -63,8 +63,8 @@ Practice syndrome decoding with the classical Hamming (7,4) code.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/decodokq-syndrome-solver.git
-cd decodokq-syndrome-solver
+git clone https://github.com/yourusername/codoq-quantum-game.git
+cd codoq-quantum-game
 
 # Run the setup script (creates venv and installs dependencies)
 ./setup.sh
@@ -77,8 +77,8 @@ source venv/bin/activate
 
 ```cmd
 # Clone the repository
-git clone https://github.com/yourusername/decodokq-syndrome-solver.git
-cd decodokq-syndrome-solver
+git clone https://github.com/yourusername/codoq-quantum-game.git
+cd codoq-quantum-game
 
 # Run the setup script (creates venv and installs dependencies)
 setup.bat
@@ -168,7 +168,7 @@ The Fano plane is a finite projective plane with 7 points and 7 lines. In the St
 ### Theory
 
 - [Fano Plane Exploration](docs/theory/FANO-PLANE-EXPLORATION-AND-CODING-PLAN.md)
-- [Steane Code Puzzle Design](docs/games/DECODOKQ-STEANE-CODE-PUZZLE.md)
+- [Steane Code Puzzle Design](docs/games/CODOQ-STEANE-CODE-PUZZLE.md)
 
 ### Design
 

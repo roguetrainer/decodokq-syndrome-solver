@@ -1,3 +1,3 @@
 """
-Test suite for Decodok-Q.
+Test suite for Codo-Q.
 """

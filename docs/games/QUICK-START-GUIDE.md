@@ -10,8 +10,8 @@ This guide helps you get started with the two main quantum error correction game
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/decodokq-syndrome-solver.git
-cd decodokq-syndrome-solver
+git clone https://github.com/yourusername/codoq-quantum-game.git
+cd codoq-quantum-game
 
 # Install dependencies
 pip install -r requirements.txt
@@ -257,7 +257,7 @@ structure = code.get_tetrahedral_structure()
 If you get `ModuleNotFoundError`:
 ```bash
 # Make sure you're in the project root
-cd /path/to/decodokq-syndrome-solver
+cd /path/to/codoq-quantum-game
 
 # Add to Python path
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"

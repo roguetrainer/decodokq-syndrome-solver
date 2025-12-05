@@ -208,7 +208,7 @@ print(round_info)
 ## File Structure Summary
 
 ```
-decodokq-syndrome-solver/
+codoq-quantum-game/
 │
 ├── GAMES-README.md                    # Main game documentation
 ├── IMPLEMENTATION-SUMMARY.md          # This file
